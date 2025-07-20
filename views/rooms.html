@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Hire My Room - Renting Rooms and Apartments made easy now</title>
+    <link rel="icon" type="image/png" href="images/logo/logo.png">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+    <script src='main.js'></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    
+    <link rel="stylesheet" href="/css/header-footer.css">
+    <style>
+        .room-card {
+            display: flex;
+            background: #fff;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .room-images {
+            flex: 1;
+            min-width: 50%;
+        }
+
+        .room-details {
+            flex: 1;
+            background: #ffffff;
+            color: #333;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .room-card:hover .room-details {
+            background: #007bff;
+            color: white;
+        }
+
+        .room-details .price {
+            font-size: 20px;
+            font-weight: 600;
+            color: #007bff;
+            transition: color 0.3s ease;
+        }
+
+        .room-card:hover .room-details .price {
+            color: white;
+        }
+
+        .room-details h5 {
+            color: #000000;
+
+            font-family: 'Georgia', serif;
+            transition: color 0.3s ease;
+        }
+
+        .room-card:hover .room-details h5 {
+            color: white;
+        }
+
+        .room-details p {
+            color: #666;
+            transition: color 0.3s ease;
+        }
+
+        .room-card:hover .room-details p {
+            color: #ccc;
+        }
+
+        .room-details p strong {
+            color: #000000;
+            transition: color 0.3s ease;
+        }
+
+        .room-card:hover .room-details p strong {
+            color: #ccc;
+        }
+
+        .room-details .btn {
+            background-color: #007bff;
+            color: white;
+            font-weight: 500;
+            border: none;
+            margin-top: 15px;
+            width: fit-content;
+            border-radius: 5px;
+            padding: 10px 20px;
+            transition: all 0.3s ease;
+        }
+
+        .room-card:hover .room-details .btn {
+            background-color: white;
+            color: #000000;
+        }
+
+        .room-details h5 {
+            color: #000000;
+
+        }
+
+        .room-details .price {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .room-details .btn {
+            background-color: #007BFF;
+            color: #000000;
+            font-weight: 500;
+            border: none;
+            margin-top: 15px;
+            width: fit-content;
+        }
+
+        .carousel-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @media (max-width: 768px) {
+            .room-card {
+                flex-direction: column;
+            }
+
+            .room-images,
+            .room-details {
+                width: 100%;
+            }
+        }
+
+        .hero-section {
+            background: url('building.jpg') center/cover no-repeat;
+            color: white;
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .search-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/home/1.avif');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .search-box {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+            color: #333;
+        }
+
+        .search-box h2 {
+            color: #333;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .filter-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-input {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .filter-input select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            background: #f8f9fa;
+            color: #333;
+        }
+
+        .search-row {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .main-search-input {
+            flex: 1;
+            position: relative;
+        }
+
+        .main-search-input input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            font-size: 16px;
+            background: #f8f9fa;
+        }
+
+        .search-btn {
+            background: #1976e8;
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            min-width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search-btn:hover {
+            background: #1565c0;
+        }
+
+        .search-btn i {
+            font-size: 18px;
+        }
+
+        
+        .pagination {
+            margin-bottom: 0;
+        }
+
+        .pagination .page-link {
+            color: #007bff;
+            border: 1px solid #dee2e6;
+            padding: 12px 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .pagination .page-link:hover {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+            transform: translateY(-1px);
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: #007bff;
+            border-color: #007bff;
+            color: white;
+        }
+
+        .pagination .page-item.disabled .page-link {
+            color: #6c757d;
+            pointer-events: none;
+            background-color: #fff;
+            border-color: #dee2e6;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header-top-bar">
+        <div class="container hover-effect">
+            <span>Phone no: <a href="tel:+923228441665">+923228441665</a> or email us: <a
+                    href="mailto:info@hiremyroom.com">info@hiremyroom.com</a></span>
+        </div>
+    </div>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="/" class="logo">
+                <span class="logo-text">Hire my</span>&nbsp;<span class="logo-highlight">Room</span>
+            </a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li class="active"><a href="/rooms">Rooms</a></li>
+                    <li><a href="/rooms/apartments">Apartments</a></li>
+                    <li><a href="/blog">Blog</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/register">Sign up</a></li>
+                    <li>
+                        <div class="language-switch">
+                            <span class="language-option english" onclick="openVideoModal('english')">
+                                <i class="fa fa-play-circle"></i>
+                                <span>ENG</span>
+                            </span>
+                            <span class="language-option urdu" onclick="openVideoModal('urdu')">
+                                <i class="fa fa-play-circle"></i>
+                                <span>URD</span>
+                            </span>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+    </header>
+
+    
+    <section class="search-section">
+        <div class="container">
+            
+            <div class="breadcrumb-nav"
+                style="text-align: center; margin-bottom: 20px; color: white; font-size: 14px; font-weight: 300;">
+                <span>Home</span>
+                <span class="separator" style="color: #ccc; margin: 0 10px;">&gt;</span>
+                <span>Rooms</span>
+            </div>
+
+            
+            <div class="page-title" style="text-align: center; margin-bottom: 40px;">
+                <h1
+                    style="color: white; font-size: 3.5rem; font-weight: 700; font-family: 'Georgia', serif; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); letter-spacing: 1px;">
+                    ROOMS</h1>
+            </div>
+
+            <div class="search-box">
+                <h2>Search for Room</h2>
+                <form class="search-form">
+                    <div class="filter-row">
+                        <div class="filter-input">
+                            <select class="form-control" id="locationFilter">
+                                <option value="">Location</option>
+                                <option value="Karachi">Karachi</option>
+                                <option value="Lahore">Lahore</option>
+                                <option value="Islamabad">Islamabad</option>
+                                <option value="Faisalabad">Faisalabad</option>
+                            </select>
+                        </div>
+                        <div class="filter-input">
+                            <select class="form-control" id="typeFilter">
+                                <option value="">Type</option>
+                                <option value="Room">Room</option>
+                                <option value="Apartment">Apartment</option>
+                            </select>
+                        </div>
+                        <div class="filter-input">
+                            <select class="form-control" id="priceFilter">
+                                <option value="">Price Range</option>
+                                <option value="0-5000">PKR 0 - 5000</option>
+                                <option value="5000-10000">PKR 5000 - 10000</option>
+                                <option value="10000-20000">PKR 10000 - 20000</option>
+                            </select>
+                        </div>
+                        <div class="filter-input">
+                            <select class="form-control" id="bedroomsFilter">
+                                <option value="">Bedrooms</option>
+                                <option value="1">1 Bedroom</option>
+                                <option value="2">2 Bedrooms</option>
+                                <option value="3">3 Bedrooms</option>
+                                <option value="4">4+ Bedrooms</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="search-row">
+                        <div class="main-search-input">
+                            <input type="text" class="form-control" placeholder="Enter location, type, or keyword">
+                        </div>
+                        <button type="submit" class="search-btn">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <div class="container py-5 ps-5">
+        <div class="row">
+            
+            <div class="col-md-6 mb-4">
+                <div class="room-card">
+                    <div class="room-images">
+                        <div id="carousel1" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="/images/rooms/room1.avif" class="d-block w-100" alt="Apartment 1 Image 1">
+                                </div>
+
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carousel1"
+                                data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon"></span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carousel1"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="room-details">
+                        <span class="price">PKR 6000 <small>Monthly</small></span>
+                        <h5>aisha girls hostel</h5>
+                        <p><strong>Location:</strong> Johar Town, Lahore</p>
+                        <p>4 months ago</p>
+                        <button class="btn" onclick="window.location.href='/rooms/detail/1'">View Room Details</button>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="col-md-6 mb-4">
+                <div class="room-card">
+                    <div class="room-images">
+                        <div id="carousel2" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="/images/rooms/room3.avif" class="d-block w-100"
+                                        alt="Apartment 2 Image 1">
+                                </div>
+                             
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carousel2"
+                                data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon"></span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carousel2"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="room-details">
+                        <span class="price">PKR 10000 <small>Daily</small></span>
+                        <h5>The Heights Nathiagali</h5>
+                        <p><strong>Location:</strong> Nathia Gali, Abbottabad</p>
+                        <p>4 months ago</p>
+                        <button class="btn" onclick="window.location.href='/rooms/detail/3'">View Room Details</button>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="col-md-6 mb-4">
+                <div class="room-card">
+                    <div class="room-images">
+                        <div id="carousel3" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="/images/rooms/room5.avif" class="d-block w-100"
+                                        alt="Apartment 3 Image 1">
+                                </div>
+                               
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carousel3"
+                                data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon"></span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carousel3"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="room-details">
+                        <span class="price">PKR 16000 <small>Monthly</small></span>
+                        <h5>Grand Hotel</h5>
+                        <p><strong>Location:</strong> Model Town, Lahore</p>
+                        <p>4 months ago</p>
+                        <button class="btn" onclick="window.location.href='/rooms/detail/5'">View Room Details</button>
+                    </div>
+                </div>
+            </div>
+
+        
+            <div class="col-md-6 mb-4">
+                <div class="room-card">
+                    <div class="room-images">
+                        <div id="carousel4" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="/images/rooms/room7.1.avif" class="d-block w-100"
+                                        alt="Apartment 4 Image 1">
+                                </div>
+                              
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carousel4"
+                                data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon"></span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carousel4"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="room-details">
+                        <span class="price">PKR 12000 <small>Monthly</small></span>
+                        <h5>3 seater luxury rooms available for girls</h5>
+                        <p><strong>Location:</strong> Johar Town, Lahore</p>
+                        <p>4 months ago</p>
+                        <button class="btn" onclick="window.location.href='/rooms/detail/7'">View Room Details</button>
+                    </div>
+                </div>
+            </div>
+
+        
+            <div class="col-md-6 mb-4">
+                <div class="room-card">
+                    <div class="room-images">
+                        <div id="carousel5" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="/images/apartments/apart7.1.avif" class="d-block w-100"
+                                        alt="Apartment 5 Image 1">
+                                </div>
+                              
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carousel5"
+                                data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon"></span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carousel5"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="room-details">
+                        <span class="price">PKR 15000 <small>Monhtly</small></span>
+                        <h5>Apartment 2 rooms</h5>
+                        <p><strong>Location:</strong> Johar Town, Lahore</p>
+                        <p>4 months ago</p>
+                        <button class="btn" onclick="window.location.href='/rooms/detail/9'">View Room Details</button>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="col-md-6 mb-4">
+                <div class="room-card">
+                    <div class="room-images">
+                        <div id="carousel6" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="/images/rooms/room11.avif" class="d-block w-100"
+                                        alt="Apartment 6 Image 1">
+                                </div>
+                          
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carousel6"
+                                data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon"></span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carousel6"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="room-details">
+                        <span class="price">PKR 14000 <small>Monthly</small></span>
+                        <h5>02 Seater Room with Attached Bath, 1st Floor</h5>
+                        <p><strong>Location:</strong> Johar Town, Lahore</p>
+                        <p>5 months ago</p>
+                        <button class="btn" onclick="window.location.href='/rooms/detail/11'">View Room Details</button>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="col-md-6 mb-4">
+                <div class="room-card">
+                    <div class="room-images">
+                        <div id="carousel7" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="/images/rooms/room13.avif" class="d-block w-100"
+                                        alt="Apartment 7 Image 1">
+                                </div>
+                             
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carousel7"
+                                data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon"></span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carousel7"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="room-details">
+                        <span class="price">PKR 12000 <small>Monthly</small></span>
+                        <h5>boys hostel 3 seater room</h5>
+                        <p><strong>Location:</strong> Thokar niaz baig, Lahore</p>
+                        <p>5 months ago</p>
+                        <button class="btn" onclick="window.location.href='/rooms/detail/13'">View Room Details</button>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="col-md-6 mb-4">
+                <div class="room-card">
+                    <div class="room-images">
+                        <div id="carousel8" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="/images/rooms/room10.1.avif" class="d-block w-100"
+                                        alt="Apartment 8 Image 1">
+                                </div>
+                        
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carousel8"
+                                data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon"></span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carousel8"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="room-details">
+                        <span class="price">PKR 12000 <small>Monthly</small></span>
+                        <h5>Imperial Boys Hostel, 3rd Floor Room no 13, 2 Seater and 1 Seat Available</h5>
+                        <p><strong>Location:</strong> Johar Town, Lahore</p>
+                        <p>5 months ago</p>
+                        <button class="btn" onclick="window.location.href='/rooms/detail/14'">View Room Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="container py-5">
+        <nav aria-label="Apartment pagination">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" href="/apartments" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item active">
+                    <a class="page-link" href="/rooms">1</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="/rooms">2</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="/rooms">3</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="/rooms">4</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="/rooms">5</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="/rooms">6</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="/rooms">7</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="/rooms">8</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="/rooms">9</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="/rooms">9</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="/rooms">10</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="/rooms">11</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="/rooms">12</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="/rooms" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+
+    
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-lg-3 mb-md-0 mb-4">
+                    <h2 class="footer-heading">
+                        <a href="#" class="logo">Hire My Room</a>
+                    </h2>
+                    <p>Where Renting Feels Right.</p>
+                    <a href="/about">Read more <span class="fa fa-chevron-right" style="font-size: 11px;"></span></a>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-md-0 mb-4">
+                    <h2 class="footer-heading">Services</h2>
+                    <ul class="list-unstyled">
+                        <li><a href="/contact" class="py-1 d-block">Review</a></li>
+                        <li><a href="/blog" class="py-1 d-block">Blog</a></li>
+                        <li><a href="/about" class="py-1 d-block">About</a></li>
+                        <li><a href="/rooms" class="py-1 d-block">Rooms</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-md-0 mb-4">
+                    <h2 class="footer-heading">Types</h2>
+                    <div class="tagcloud">
+                        <a href="/apartments" class="tag-cloud-link">Apartment</a>
+                        <a href="/rooms" class="tag-cloud-link">Room</a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-md-0 mb-4">
+                    <h2 class="footer-heading">Subscribe</h2>
+                    <form class="subscribe-form" onsubmit="return validateAndSubscribe(event)">
+                        <div class="form-group d-flex">
+                            <input type="email" name="email" id="subscribeEmail" class="form-control"
+                                placeholder="Enter email address" required>
+                            <button type="submit" class="submit-btn">
+                                <i class="fa fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+
+                
+                    <div id="subscribePopup"
+                        style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 1000; text-align: center; min-width: 300px;">
+                        <div id="popupContent">
+                            <i id="popupIcon" style="font-size: 48px; margin-bottom: 15px;"></i>
+                            <h4 id="popupTitle" style="margin-bottom: 10px; color: #333;"></h4>
+                            <p id="popupMessage" style="color: #666; margin-bottom: 20px;"></p>
+                            <button onclick="closePopup()"
+                                style="background: #0073e6; color: white; border: none; padding: 10px 25px; border-radius: 5px; cursor: pointer; font-weight: 600;">OK</button>
+                        </div>
+                    </div>
+
+                    
+                    <div id="overlay"
+                        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 999;">
+                    </div>
+                    <h2 class="footer-heading mt-5">Follow us</h2>
+                    <ul class="ftco-footer-social p-0">
+                        <li><a href="#" data-toggle="tooltip" data-placement="top" title="Twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a></li>
+                        <li><a href="#" data-toggle="tooltip" data-placement="top" title="Facebook">
+                                <i class="fa-brands fa-facebook-f"></i>
+                            </a></li>
+                        <li><a href="#" data-toggle="tooltip" data-placement="top" title="Instagram">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="w-100 mt-5 border-top py-5 lower-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-lg-8">
+                        <p class="copyright mb-0">
+                            Copyright ©
+                            <script>
+                                document.write(new Date().getFullYear());
+                            </script>
+                            All rights reserved | <i class="fa fa-heart" aria-hidden="true"></i>
+                            <a href="#" target="_blank">hiremyroom.com</a>
+                        </p>
+                    </div>
+                    <div class="col-md-6 col-lg-4 text-md-right">
+                        <p class="mb-0 list-unstyled">
+                            <a class="mr-md-3" href="#">Terms</a>
+                            <a class="mr-md-3" href="#">Privacy</a>
+                            <a class="mr-md-3" href="#">Compliances</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+    <div id="videoModal" class="video-modal">
+        <div class="video-modal-content">
+            <div class="video-modal-header">
+                <h3 class="video-modal-title" id="videoModalTitle">English Introduction Video</h3>
+                <button class="video-modal-close" onclick="closeVideoModal()">&times;</button>
+            </div>
+            <div class="video-container">
+                <video id="introVideo" class="video-player" controls>
+                    <source src="/videos/English.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </div>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <script>
+        function openVideoModal(language) {
+            const modal = document.getElementById('videoModal');
+            const video = document.getElementById('introVideo');
+            const title = document.getElementById('videoModalTitle');
+
+            
+            if (language === 'urdu') {
+                title.textContent = 'Urdu Introduction Video';
+                video.src = '/videos/urdu.mp4';
+            } else {
+                title.textContent = 'English Introduction Video';
+                video.src = '/videos/English.mp4';
+            }
+
+            
+            modal.classList.add('show');
+
+            
+            video.play();
+        }
+
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const video = document.getElementById('introVideo');
+
+            
+            video.pause();
+
+            
+            modal.classList.remove('show');
+        }
+
+        
+        document.getElementById('videoModal').addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeVideoModal();
+            }
+        });
+
+        
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeVideoModal();
+            }
+        });
+    </script>
+
+    
+    <script>
+        function validateAndSubscribe(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('subscribeEmail').value.trim();
+
+            
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!email) {
+                showPopup('error', 'Empty Email', 'Please enter your email address to subscribe to our newsletter.');
+                return false;
+            }
+
+            if (!emailRegex.test(email)) {
+                showPopup('error', 'Invalid Email', 'Please enter a valid email address (e.g., user@example.com).');
+                return false;
+            }
+
+            
+            showPopup('success', 'Subscription Successful!', 'Thank you for subscribing to our newsletter. You will receive updates about our latest rooms and offers.');
+
+            
+            document.getElementById('subscribeEmail').value = '';
+
+            return false;
+        }
+
+        function showPopup(type, title, message) {
+            const popup = document.getElementById('subscribePopup');
+            const overlay = document.getElementById('overlay');
+            const icon = document.getElementById('popupIcon');
+            const popupTitle = document.getElementById('popupTitle');
+            const popupMessage = document.getElementById('popupMessage');
+
+            
+            if (type === 'success') {
+                icon.className = 'fa fa-check-circle';
+                icon.style.color = '#28a745';
+            } else {
+                icon.className = 'fa fa-exclamation-circle';
+                icon.style.color = '#dc3545';
+            }
+
+            popupTitle.textContent = title;
+            popupMessage.textContent = message;
+
+            
+            popup.style.display = 'block';
+            overlay.style.display = 'block';
+        }
+
+        function closePopup() {
+            const popup = document.getElementById('subscribePopup');
+            const overlay = document.getElementById('overlay');
+
+            popup.style.display = 'none';
+            overlay.style.display = 'none';
+        }
+
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            const overlay = document.getElementById('overlay');
+            overlay.addEventListener('click', closePopup);
+        });
+    </script>
+</body>
+
+</html>
